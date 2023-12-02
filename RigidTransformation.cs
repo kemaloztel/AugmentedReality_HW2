@@ -7,6 +7,7 @@ public class RigidTransformation : MonoBehaviour
 {
     public static List<Vector3> sourcePoints = new List<Vector3>();
     public static List<Vector3> targetPoints = new List<Vector3>();
+    private static List<GameObject> createdSpheres = new List<GameObject>(); //olusturdugum kureleri silmek icin
 
     public static void SetSourcePoints(List<Vector3> points)
     {
@@ -184,7 +185,7 @@ public class RigidTransformation : MonoBehaviour
             sphere.transform.parent = transform;
             Color greenColor = new Color(0, 1, 0);
             sphere.GetComponent<Renderer>().material.color = greenColor;
-
+            createdSpheres.Add(sphere);
             GameObject mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             mainCamera.transform.position = sphere.transform.position - mainCamera.transform.forward * 15f;
         }
@@ -214,4 +215,13 @@ public class RigidTransformation : MonoBehaviour
         public double Error { get; set; }
     }
 
+    public void DeleteSpheres()
+    {
+        foreach (GameObject sphere in createdSpheres)
+        {
+            Destroy(sphere); // Olusturulan tum kureleri sil
+        }
+
+        createdSpheres.Clear(); // Listenin icini temizle
+    }
 }

@@ -53,15 +53,25 @@ public class ReadPoint2 : MonoBehaviour
     }
 
     public void CallRigitTransformation(){
-        RigidTransformation rigidTransformation = new RigidTransformation();
+        RigidTransformation rigidTransformation = gameObject.AddComponent<RigidTransformation>();
         Transform transform = this.transform;
         rigidTransformation.Main(transform);
     }
 
+    public void DeleteRigidPoints(){
+        RigidTransformation rigidTransformation = gameObject.AddComponent<RigidTransformation>();
+        rigidTransformation.DeleteSpheres();
+    }
+
     public void CallGlobalScaleRigidTransformation(){
-        GlobalScaleRigidTransformation globalScaleRigidTransformation = new GlobalScaleRigidTransformation();
+        GlobalScaleRigidTransformation globalScaleRigidTransformation = gameObject.AddComponent<GlobalScaleRigidTransformation>();
         Transform transform = this.transform;
         globalScaleRigidTransformation.Main(transform);
+    }
+
+    public void DeleteGlobalScaleRigidPoints(){
+        GlobalScaleRigidTransformation globalScaleRigidTransformation = gameObject.AddComponent<GlobalScaleRigidTransformation>();
+        globalScaleRigidTransformation.DeleteSpheres();
     }
 
 }

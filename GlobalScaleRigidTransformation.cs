@@ -4,10 +4,11 @@ using UnityEngine;
 using System.Linq;
 using Random = UnityEngine.Random;
 
-public class GlobalScaleRigidTransformation
+public class GlobalScaleRigidTransformation : MonoBehaviour
 {
     public static List<Vector3> sourcePoints = new List<Vector3>();
     public static List<Vector3> targetPoints = new List<Vector3>();
+    private static List<GameObject> createdGlobalScaleSpheres = new List<GameObject>(); //olusturdugum kureleri silmek icin
 
     public static void SetSourcePoints(List<Vector3> points)
     {
@@ -180,6 +181,7 @@ public class GlobalScaleRigidTransformation
             //sphere.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
             Color greenColor = new Color(255, 255, 0);
             sphere.GetComponent<Renderer>().material.color = greenColor;
+            createdGlobalScaleSpheres.Add(sphere);
             mainCamera.transform.position = point;
         }
         mainCamera.transform.position = mainCamera.transform.position - mainCamera.transform.forward * 25f;
@@ -193,6 +195,16 @@ public class GlobalScaleRigidTransformation
         public float TranslationY { get; set; }
         public float TranslationZ { get; set; }
         public float Error { get; set; }
+    }
+
+    public void DeleteSpheres()
+    {
+        foreach (GameObject sphere in createdGlobalScaleSpheres)
+        {
+            Destroy(sphere); // Olusturulan tum kureleri sil
+        }
+
+        createdGlobalScaleSpheres.Clear(); // Listenin icini temizle
     }
 }
 
